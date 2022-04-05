@@ -1,7 +1,7 @@
 module.exports = {
     apps: [{
       name: 'one2five_backend',
-      script: './app.js'
+      script: 'node app.js'
     }],
     deploy: {
       production: {
