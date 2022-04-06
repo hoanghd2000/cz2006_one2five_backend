@@ -5,6 +5,14 @@ const findSimilarFlats = require('./similarFlatFinder');
 const {avgCalc, percentileCalc, predictPrice} = require('./priceCalculator');
 
 const lookup = async (req, res) => {
+    // Check if all input fields are provided
+    if (!req.query.block || !req.query.street_name || !req.query.flatType) {
+        console.log(`Error: Lacking input field(s)!`);
+        res.status(400).json({
+            message: "Error: Lacking input field(s)!"
+        });
+    }
+    
     // Check if the inputted HDB address is valid
     const [rows, fields] = await getHDB(req.query.block, req.query.street_name).catch((err) => {
         console.log(err);

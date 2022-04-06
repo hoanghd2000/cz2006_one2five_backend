@@ -14,7 +14,7 @@ const searchByAmenity = async (rentedOutFlatList, amenityType, amenityDist) => {
         });
         if (response.data.status === 'OK'){
             // console.log(response.data.results[0].types)
-            console.log(`No. of amenities found: ${response.data.results.length}`);
+            // console.log(`No. of amenities found: ${response.data.results.length}`);
             filteredList.push(flat);
         }
         else if (response.data.status === 'ZERO_RESULTS')
@@ -50,7 +50,7 @@ const findAllNearbyAmenities = async (flatLat, flatLon, amenityDist = 1000) => {
         let response = await findNearbyAmenities(flatLat, flatLon, amenityType, amenityDist);
 
         if (response.data.status === 'OK') {
-            console.log(`No. of amenities found for type ${amenityType}: ${response.data.results.length}`);
+            // console.log(`No. of amenities found for type ${amenityType}: ${response.data.results.length}`);
             master = master.concat(
                 (response.data.results.length > 4) ? response.data.results.slice(0, 4) : response.data.results
             ); // take up to a max of 4 amenity instances of a type
@@ -68,7 +68,7 @@ const findAllNearbyAmenities = async (flatLat, flatLon, amenityDist = 1000) => {
         console.log(err);
     });
     if (distRes.data.status === 'OK') {
-        console.log('Successfully calculate distance from Flat to each amenity!');
+        // console.log('Successfully calculate distance from Flat to each amenity!');
     }
     // Add the road distance info from Flat into each amenity
     for (let i = 0; i < master.length; i++) {
@@ -87,7 +87,7 @@ const findAllNearbyAmenities = async (flatLat, flatLon, amenityDist = 1000) => {
 // Method to find the coordinates of a particular address
 const findCoords = async (address) => {
     const response = await findCoord(address);
-    console.log(response.data.results[0]);
+    // console.log(response.data.results[0]);
     return new Promise((resolve) => {
         resolve(response.data.results[0]);
     });

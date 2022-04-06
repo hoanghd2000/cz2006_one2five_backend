@@ -34,4 +34,6 @@ const town_legend = {
     'YS': 'YISHUN'
 }
 
-module.exports = {getHDB, town_legend};
+const flatTypes = ['1-ROOM', '2-ROOM', '3-ROOM', '4-ROOM', '5-ROOM', 'EXECUTIVE'];
+
+module.exports = {getHDB, town_legend, flatTypes};
