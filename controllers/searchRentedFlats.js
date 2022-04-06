@@ -62,11 +62,11 @@ const searchRentedFlats = async (req, res) => {
         return;
     }
 
-    if (amenityDist && Number.isNaN(amenityDist)) {
+    if (amenityDist && (Number.isNaN(amenityDist) || amenityDist < 50)) {
         console.log("Amenity Distance must be a number");
         res.status(400).json(
             {
-                message: "Amenity Distance must be a number"
+                message: "Amenity Distance must be a positive number larger than or equal to 50"
             }
         );
         return;
