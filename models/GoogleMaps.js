@@ -45,11 +45,12 @@ const calcDistance = async (src, dst) => {
 // Method to find the road distance between src (1 place - coords) and dst (addresses)
 const calcDistanceMD = async (src, dst) => {
     let url = 'https://maps.googleapis.com/maps/api/distancematrix/json?' +
-            'origins=' + src[0] + '%2C' + src[1] + '&destinations=' + 'place_id:' + dst[0];
+              'origins=' + src[0] + '%2C' + src[1] + 
+              '&destinations=' + 'place_id:' + dst[0];
     for (let i = 1; i < dst.length; i++) {
         url = url + '%7Cplace_id:' + dst[i];
     }
-    url += '&key=' + process.env.Dist_Coords_GGMapsAPIKey;
+    url = url + 'mode=walking' + '&key=' + process.env.Dist_Coords_GGMapsAPIKey;
 
     return axios.get(url);
 }
