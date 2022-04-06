@@ -9,7 +9,7 @@ const searchRentedFlats = async (req, res) => {
     const { town, flatType, numericFilters, amenityType, amenityDist } = req.query;
 
     // Prevent users from searching with only the amenity filter
-    if (!(town || flatType || numericFilters)) {
+    if (!(town || flatType || numericFilters) && amenityType) {
         console.log("Operation will overflow Google API Credits");
         res.status(400).json(
             {
@@ -20,7 +20,7 @@ const searchRentedFlats = async (req, res) => {
     }
 
     // Check town's validity
-    if(!(town.toUpperCase() in town_legend.values())) {
+    if(town && !(Object.values(town_legend).includes(town.toUpperCase()))) {
         console.log("Invalid Town");
         res.status(400).json(
             {
@@ -31,7 +31,7 @@ const searchRentedFlats = async (req, res) => {
     }
 
     // Check flatType's validity
-    if (!(flatType.toUpperCase() in flatTypes)) {
+    if (flatType && !(flatTypes.includes(flatType.toUpperCase()))) {
         console.log("Invalid Flat Type");
         res.status(400).json(
             {
@@ -52,7 +52,7 @@ const searchRentedFlats = async (req, res) => {
         return;
     }
 
-    if (!(amenityType in amenityTypes)) {
+    if (amenityType && !(amenityTypes.includes(amenityType))) {
         console.log("Invalid Amenity Type");
         res.status(400).json(
             {
@@ -62,7 +62,7 @@ const searchRentedFlats = async (req, res) => {
         return;
     }
 
-    if (Number.isNaN(amenityDist)) {
+    if (amenityDist && Number.isNaN(amenityDist)) {
         console.log("Amenity Distance must be a number");
         res.status(400).json(
             {
@@ -130,7 +130,7 @@ const searchRentedFlats = async (req, res) => {
     //console.log(`${rows.length} results`);
 
     // Only perform the search if no. of Nearby API requests is fewer than or equal to 2000
-    if (rows.length > 2000) {
+    if (amenityType && rows.length > 2000) {
         console.log("Cannot search by amenities on more than 2000 flat results");
         res.status(400).json(
             {

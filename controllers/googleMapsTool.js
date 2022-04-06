@@ -17,10 +17,10 @@ const searchByAmenity = async (rentedOutFlatList, amenityType, amenityDist) => {
             // console.log(`No. of amenities found: ${response.data.results.length}`);
             filteredList.push(flat);
         }
-        else if (response.data.status === 'ZERO_RESULTS')
-            console.log("Not found amenities...");
-        else
-            console.log(response.data.status);
+        // else if (response.data.status === 'ZERO_RESULTS')
+        //     console.log("Not found amenities...");
+        // else
+        //     console.log(response.data.status);
     };
 
     return new Promise((resolve) => {
