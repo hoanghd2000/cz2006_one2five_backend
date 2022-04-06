@@ -50,7 +50,7 @@ const calcDistanceMD = async (src, dst) => {
     for (let i = 1; i < dst.length; i++) {
         url = url + '%7Cplace_id:' + dst[i];
     }
-    url = url + 'mode=walking' + '&key=' + process.env.Dist_Coords_GGMapsAPIKey;
+    url = url + '&mode=walking' + '&key=' + process.env.Dist_Coords_GGMapsAPIKey;
 
     return axios.get(url);
 }
