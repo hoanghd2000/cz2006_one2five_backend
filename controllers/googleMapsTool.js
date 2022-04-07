@@ -50,15 +50,17 @@ const findAllNearbyAmenities = async (flatLat, flatLon, amenityDist = 1000) => {
         let response = await findNearbyAmenities(flatLat, flatLon, amenityType, amenityDist);
 
         if (response.data.status === 'OK') {
-            // console.log(`No. of amenities found for type ${amenityType}: ${response.data.results.length}`);
+            console.log(`No. of amenities found for type ${amenityType}: ${response.data.results.length}`);
             master = master.concat(
                 (response.data.results.length > 4) ? response.data.results.slice(0, 4) : response.data.results
             ); // take up to a max of 4 amenity instances of a type
         }
         else if (response.data.status === 'ZERO_RESULTS')
             console.log(`Not found amenities for type ${amenityType}`);
-        else
+        else {
             console.log(response.data.status);
+            console.log(response)
+        }
     }
     // Calculating road distance from Flat to each amenity
     for (amenity of master) {
