@@ -15,7 +15,10 @@ const clickOnFlat = require('./routes/clickOnFlat');
 const calcDist = require('./routes/calcDist');
 
 // middleware
+// json
 app.use(express.json());
+
+// cors
 const allowedOrigins = ['http://rentigo.herokuapp.com','http://localhost:3000'];
 app.use(cors({
     origin: function(origin, callback){

@@ -4,6 +4,12 @@ const {findAllNearbyAmenities} = require('../controllers/googleMapsTool');
 const findSimilarFlats = require('./similarFlatFinder');
 const {avgCalc, percentileCalc, predictPrice} = require('./priceCalculator');
 
+/**
+ * Function to lookup a Target Flat
+ * 
+ * @param {Express.Request} req
+ * @param {Express.Response} res
+ */
 const lookup = async (req, res) => {
     // Check if all input fields are provided
     if (!req.query.block || !req.query.street_name || !req.query.flatType) {

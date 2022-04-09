@@ -4,7 +4,12 @@ const amenityTypes = require('../models/Amenity');
 const {searchByAmenity} = require('./googleMapsTool');
 const {avgCalc, percentileCalc, predictPrice} = require('./priceCalculator');
 
-// Search for rented-out flats based on town, flat_type, price, and nearby amenity
+/**
+ * Function to search for rented-out flats based on town, flat_type, price, and nearby amenity
+ * 
+ * @param {Express.Request} req 
+ * @param {Express.Response} res 
+ */
 const searchRentedFlats = async (req, res) => {
     const { town, flatType, numericFilters, amenityType, amenityDist } = req.query;
 
@@ -177,8 +182,12 @@ const searchRentedFlats = async (req, res) => {
     }
 }
 
-
-// Get all rented-out flats
+/**
+ * Function to get all rented-out flats
+ * 
+ * @param {Express.Request} req 
+ * @param {Express.Response} res
+ */
 const getAllRentedFlats = (req, res) => {
     RentedOutFlat.getAll((err, data) => {
         if (err)
@@ -194,7 +203,12 @@ const getAllRentedFlats = (req, res) => {
     })
 }
 
-// Get a rented-out flat by id
+/**
+ * Function to get a rented-out flat by id
+ * 
+ * @param {Express.Request} req 
+ * @param {Express.Response} res
+ */ 
 const getRentedFlat = async (req, res) => {
     const [rows, fields] = await RentedOutFlat.getById(req.params.id).catch(err => {
         console.log(err);

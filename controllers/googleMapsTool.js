@@ -1,11 +1,17 @@
 const GoogleMaps  = require('../models/GoogleMaps');
 const [findNearbyAmenities, findCoord, calcDist, calcDistanceMD] = [GoogleMaps.findNearbyAmenities, GoogleMaps.findCoords, GoogleMaps.calcDistance, GoogleMaps.calcDistanceMD];
 
-// Method to search for rented-out flats based on a nearby amenity
-const searchByAmenity = async (rentedOutFlatList, amenityType, amenityDist) => {
-    /*Function that takes in a list of rented-out flats (json) and return the rented-out flats (json) in that list that has a 
-    nearby amenity of amenityType (e.g. hospital, school, etc.) within amenityDist m/km (whichever suitable)
-    */
+/**
+ * Function to search for rented-out flats based on a nearby amenity
+ * Implemented by taking in a list of rented-out flats (json) and return the rented-out flats (json) in that list that has a 
+    nearby amenity of amenityType (e.g. healthcare, school, etc.) within amenityDist m
+ * 
+ * @param {*} rentedOutFlatList List of rented-out flats
+ * @param {string} amenityType 
+ * @param {number|string} amenityDist in meters, default = 1000
+ * @returns {Promise}
+ */
+const searchByAmenity = async (rentedOutFlatList, amenityType, amenityDist = 1000) => {
     let filteredList = [];
 
     for (const flat of rentedOutFlatList){
@@ -37,11 +43,16 @@ const amenityTypeList = [
     "doctor" // display as healthcare on frontend 
 ]
 
-// Method to find all nearby amenities (based on the defined list of amenities) of a particular flat
+/**
+ * Function to find all nearby amenities (based on the defined list of amenities) of a particular flat
+ * 
+ * @param {number|string} flatLat The flat's latitude
+ * @param {number|string} flatLon The flat's longtitude
+ * @param {number|string} amenityDist in meters, default = 1000
+ * @returns 
+ */
 const findAllNearbyAmenities = async (flatLat, flatLon, amenityDist = 1000) => { 
-    // flatLat: flat latitude and flatLon: flat longtitude
     // default amenityType = null, meaning find all nearby amenities
-    // assume nearby is 1km => amenityDist = 1000
     // valid amenityType: "supermarket", "school", "bus_station", "subway_station", "doctor"
     let master = [];
     let master_placeids = [];
@@ -85,7 +96,12 @@ const findAllNearbyAmenities = async (flatLat, flatLon, amenityDist = 1000) => {
     });
 }
 
-// Method to find the coordinates of a particular address
+/**
+ * Function to find the coordinates of a particular address
+ * 
+ * @param {string} address 
+ * @returns {Promise}
+ */
 const findCoords = async (address) => {
     const response = await findCoord(address);
     // console.log(response.data.results[0]);
@@ -94,7 +110,13 @@ const findCoords = async (address) => {
     });
 }
 
-// Method to find the road distance between a flat [lat, lng] and a custom location (address, no need to be no. street_name)
+/**
+ * Function to find the road distance between a flat [lat, lng] and a custom location (address, no need to be no. street_name)
+ * 
+ * @param {[]} flat 
+ * @param {string} cusLoc 
+ * @returns {Promise}
+ */
 const calcDistance = async (flat, cusLoc) => {
     const distRes = await calcDist(flat, cusLoc).catch(err => {
         console.log(err);
@@ -175,5 +197,3 @@ module.exports = {
     findCoords,
     calcDistance
 }
-
-// calcDistance([1.33943033543358,103.853442790992], "Catholic Junior College")
