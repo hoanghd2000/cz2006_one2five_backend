@@ -41,8 +41,13 @@ const lookup = async (req, res) => {
     const coords = await findFlatCoords(req.query.block, req.query.street_name).catch((err) => {
         console.log(err);
     });
-    if (coords.data.found == 0)
+    if (coords.data.found == 0) {
         console.log("Cannot find the coordinates of the TargetFlat");
+        res.status(500).json({
+            message: "Cannot find the coordinates of the TargetFlat"
+        });
+        return;
+    }
     else {
         lat = parseFloat(coords.data.results[0].LATITUDE);
         lon = parseFloat(coords.data.results[0].LONGITUDE);

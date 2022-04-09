@@ -14,7 +14,7 @@ const town_legend = {
     'BT': 'BUKIT TIMAH',
     'CCK': 'CHOA CHU KANG',
     'CL': 'CLEMENTI',
-    'CT': 'CENTRAL AREA',
+    'CT': 'CENTRAL',
     'GL': 'GEYLANG',
     'HG': 'HOUGANG',
     'JE': 'JURONG EAST',
